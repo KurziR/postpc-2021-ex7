@@ -15,7 +15,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         Spinner dropdown = findViewById(R.id.pickels);
-        String[] items = new String[]{"1", "2", "3", "4", "5", "6", "7", "8", "9", "10"};
+        String[] items = new String[]{"1 pickle", "2 pickles", "3 pickles", "4 pickles", "5 pickles", "6 pickles", "7 pickles", "8 pickles", "9 pickles", "10 pickles"};
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, items);
         dropdown.setAdapter(adapter);
     }
