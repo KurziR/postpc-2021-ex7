@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "46440443584",
+    "project_id": "rachel-s-orders",
+    "storage_bucket": "rachel-s-orders.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:46440443584:android:cbf531ae471ce56a2bc725",
+        "android_client_info": {
+          "package_name": "huji.postpc.y2021.reutk.rachelsfood"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "46440443584-igjfn4j9g0h810v9fu37npd9239llg33.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCu3s7-7UArSEd5gBb8fGE8Ypu-Y0kEA70"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "46440443584-igjfn4j9g0h810v9fu37npd9239llg33.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
