@@ -50,6 +50,18 @@
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginBottom="40dp"/>
 
+    <EditText
+        android:id="@+id/personName"
+        android:layout_width="340dp"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:textSize="10dp"
+        android:hint="Insert your name"
+        app:layout_constraintBottom_toTopOf="@+id/personRequests"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginBottom="40dp"/>
+
     <TextView
         android:id="@+id/hummus"
         android:layout_width="wrap_content"
