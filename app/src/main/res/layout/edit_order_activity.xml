@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".EditActivity">
+
+    <Button
+        android:id="@+id/delete"
+        android:layout_width="wrap_content"
+        android:layout_height="72dp"
+        android:text="Delete order"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginBottom="32dp"
+        android:layout_marginEnd="40dp"/>
+
+    <Button
+        android:id="@+id/edit"
+        android:layout_width="wrap_content"
+        android:layout_height="72dp"
+        android:text="Save changes"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginBottom="32dp"
+        android:layout_marginStart="40dp"/>
+
+    <Switch
+        android:id="@+id/edit_is_hummus"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Yes"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/edit_hummus"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="50dp"/>
+
+    <Switch
+        android:id="@+id/edit_is_tahini"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Yes"
+        app:layout_constraintStart_toEndOf="@+id/edit_tahini"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="120dp"
+        android:layout_marginStart="77dp" />
+
+    <EditText
+        android:id="@+id/edit_personRequests"
+        android:layout_width="340dp"
+        android:layout_height="200dp"
+        android:ems="10"
+        android:textSize="20dp"
+        android:hint="Special requests?"
+        android:background="@drawable/colored_rect_with_rounded_corners"
+        app:layout_constraintBottom_toTopOf="@+id/edit"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginBottom="40dp"/>
+
+    <EditText
+        android:id="@+id/edit_personName"
+        android:layout_width="340dp"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:textSize="10dp"
+        android:hint="Insert your name"
+        app:layout_constraintBottom_toTopOf="@+id/edit_personRequests"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginBottom="40dp"/>
+
+    <TextView
+        android:id="@+id/edit_hummus"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Hummus?"
+        android:textSize="25dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginStart="40dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/edit_tahini"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Tahini?"
+        android:textSize="25dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginStart="40dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/edit_hummus"/>
+
+    <Spinner
+        android:id="@+id/edit_pickels"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:layout_marginStart="40dp"
+        android:spinnerMode="dropdown"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/edit_tahini"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

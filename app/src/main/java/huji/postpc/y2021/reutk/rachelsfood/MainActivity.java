@@ -1,67 +1,65 @@
 package huji.postpc.y2021.reutk.rachelsfood;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.LiveData;
-
-import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.Spinner;
-import android.widget.Switch;
-import android.widget.TextView;
+import android.preference.PreferenceManager;
+import com.google.firebase.FirebaseApp;
+import com.google.firebase.firestore.FirebaseFirestore;
 
-import java.util.Objects;
-import java.util.Observer;
 
 public class MainActivity extends AppCompatActivity {
-
-    SharedPreferences sp;
-    FirestoreHelper firestore;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        if (sp == null){
-            sp = this.getSharedPreferences(getString(R.string.preference_file_key), Context.MODE_PRIVATE);
-            firestore = new FirestoreHelper(sp);
+        FirebaseApp.initializeApp(this);
+        FirebaseFirestore firestore = FirebaseFirestore.getInstance();
+
+        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this);
+        String order_id = sp.getString("order_id", "");
+        if(!order_id.equals("")) { firestore.collection("orders").document(order_id).get().
+                    addOnSuccessListener(v -> {
+                        if (v == null){
+                            newOrderActivity();
+                            return;
+                        }
+                        Order order = v.toObject(Order.class);
+                        if (order == null){
+                            newOrderActivity();
+                            return;
+                        }
+                        if (order.getStatus().equals("done")){
+                            newOrderActivity();
+                        }
+                        if (order.getStatus().equals("waiting")){
+                            alreadyOrderActivity(EditActivity.class, order);
+                            return;
+                        }
+                        if (order.getStatus().equals("in-progress")){
+                            alreadyOrderActivity(InProgressActivity.class, order);
+                            return;
+                        }
+                        if (order.getStatus().equals("ready")){
+                            alreadyOrderActivity(IsReadyActivity.class, order);
+                        }
+                    });
+            return;
         }
+        newOrderActivity();
+    }
 
-        Button save_order = findViewById(R.id.save);
-        EditText comment = findViewById(R.id.personRequests);
-        Switch is_hummus = findViewById(R.id.is_hummus);
-        Switch is_tahini = findViewById(R.id.is_tahini);
-        TextView hummus = findViewById(R.id.hummus);
-        TextView tahini = findViewById(R.id.tahini);
-        Spinner pickels = findViewById(R.id.pickels);
+    private void newOrderActivity(){
+        Intent intent = new Intent(this, OrderActivity.class);
+        startActivity(intent);
+    }
 
-        save_order.setOnClickListener(v -> {
-            String user_comment = comment.getText().toString();
-            boolean hummus = is_hummus.isChecked();
-            boolean tahini = is_tahini.isChecked();
-            int pickels = pickels
-            Order new_order = Order(name, pickels, boolean hummus, boolean tahini)
-        });
-
-        firestore.collection("orders").get();
-        LiveData<Order> ordersLiveData = firestore.downloadOrders("");
-        ordersLiveData.observe(this, (Observer<Order>) order -> {
-            if (order == null) {
-                // no wallet yet… this is invoked from the first "null" value inside the LiveData...
-                // TODO: set UI to "loading" state
-            } else {
-                // someone put the wallet Inside the LiveData! And we got it! Yay :D
-                // TODO: set UI based on the wallet data
-            }
-        });
-
-        Spinner dropdown = findViewById(R.id.pickels);
-        String[] items = new String[]{"1 pickle", "2 pickles", "3 pickles", "4 pickles", "5 pickles", "6 pickles", "7 pickles", "8 pickles", "9 pickles", "10 pickles"};
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, items);
-        dropdown.setAdapter(adapter);
+    private void alreadyOrderActivity(Class<?> activity, Order order){
+        Intent intent = new Intent(this, activity);
+        intent.putExtra("order", order);
+        startActivity(intent);
     }
 }

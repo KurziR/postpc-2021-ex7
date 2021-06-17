@@ -36,6 +36,10 @@ public class Order implements Serializable {
         return id;
     }
 
+    public String getCustomer_name() {
+        return customer_name;
+    }
+
     public void setCustomer_name(String name) {
         this.customer_name = name;
     }

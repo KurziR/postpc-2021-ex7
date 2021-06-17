@@ -16,6 +16,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".OrderActivity" />
+        <activity android:name=".EditActivity" />
+        <activity android:name=".InProgressActivity" />
+        <activity android:name=".IsReadyActivity" />
     </application>
 
 </manifest>
