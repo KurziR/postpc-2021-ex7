@@ -32,9 +32,6 @@ public class MainActivity extends AppCompatActivity {
                             newOrderActivity();
                             return;
                         }
-                        if (order.getStatus().equals("done")){
-                            newOrderActivity();
-                        }
                         if (order.getStatus().equals("waiting")){
                             alreadyOrderActivity(EditActivity.class, order);
                             return;
@@ -46,20 +43,26 @@ public class MainActivity extends AppCompatActivity {
                         if (order.getStatus().equals("ready")){
                             alreadyOrderActivity(IsReadyActivity.class, order);
                         }
+                        if (order.getStatus().equals("done")){
+                            newOrderActivity();
+                        }
                     });
             return;
         }
+
         newOrderActivity();
     }
 
     private void newOrderActivity(){
         Intent intent = new Intent(this, OrderActivity.class);
         startActivity(intent);
+        finish();
     }
 
     private void alreadyOrderActivity(Class<?> activity, Order order){
         Intent intent = new Intent(this, activity);
         intent.putExtra("order", order);
         startActivity(intent);
+        finish();
     }
 }

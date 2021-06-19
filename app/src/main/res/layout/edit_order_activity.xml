@@ -13,9 +13,11 @@
         android:layout_height="72dp"
         android:text="Delete order"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/edit"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginBottom="32dp"
-        android:layout_marginEnd="40dp"/>
+        android:layout_marginEnd="40dp"
+        android:layout_marginStart="40dp"/>
 
     <Button
         android:id="@+id/edit"
@@ -25,7 +27,8 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         android:layout_marginBottom="32dp"
-        android:layout_marginStart="40dp"/>
+        android:layout_marginEnd="40dp"
+        android:layout_marginStart="32dp"/>
 
     <Switch
         android:id="@+id/edit_is_hummus"
