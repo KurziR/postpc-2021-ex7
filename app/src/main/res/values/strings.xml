@@ -1,3 +1,17 @@
 <resources>
     <string name="app_name">Rachels food</string>
+
+    <array name="status_options">
+        <item>1 pickle</item>
+        <item>2 pickles</item>
+        <item>3 pickles</item>
+        <item>4 pickles</item>
+        <item>5 pickles</item>
+        <item>6 pickles</item>
+        <item>7 pickles</item>
+        <item>8 pickles</item>
+        <item>9 pickles</item>
+        <item>10 pickles</item>
+    </array>
+
 </resources>

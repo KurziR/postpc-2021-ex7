@@ -7,7 +7,7 @@ public class Order implements Serializable {
 
     private String id;
     private String customer_name;
-    private String num_of_pickles = "";
+    private int num_of_pickles = 0;
     private boolean hummus;
     private boolean tahini;
     private String comment;
@@ -15,7 +15,7 @@ public class Order implements Serializable {
 
     public Order() {}
 
-    public Order(String name, String pickles, boolean hummus, boolean tahini, String comment) {
+    public Order(String name, int pickles, boolean hummus, boolean tahini, String comment) {
         this.id = UUID.randomUUID().toString();
         this.customer_name = name;
         this.status = "waiting";
@@ -38,11 +38,11 @@ public class Order implements Serializable {
         this.customer_name = name;
     }
 
-    public String getNum_of_pickles() {
+    public int getNum_of_pickles() {
         return num_of_pickles;
     }
 
-    public void setNum_of_pickels(String num_of_pickels) {
+    public void setNum_of_pickels(int num_of_pickels) {
         this.num_of_pickles = num_of_pickels;
     }
 

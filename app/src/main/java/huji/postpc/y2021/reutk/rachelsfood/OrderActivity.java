@@ -47,10 +47,9 @@ public class OrderActivity extends AppCompatActivity {
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, items);
         pickles.setAdapter(adapter);
 
-        new_order = new Order(name.getText().toString(), pickles.getSelectedItem().toString(),
-                is_hummus.isChecked(), is_tahini.isChecked(), comment.getText().toString());
-
         save_order.setOnClickListener(v -> {
+            new_order = new Order(name.getText().toString(), pickles.getSelectedItemPosition(),
+                    is_hummus.isChecked(), is_tahini.isChecked(), comment.getText().toString());
             if (TextUtils.isEmpty(name.getText())) {
                 name.setError("Please insert your name");
                 return;
@@ -64,21 +63,6 @@ public class OrderActivity extends AppCompatActivity {
         });
     }
 }
-//            new_order.setHummus(is_hummus.isChecked());
-//            new_order.setTahini(is_tahini.isChecked());
-//            new_order.setNum_of_pickels(pickles.getSelectedItem().toString());
-//            new_order.setCustomer_name(name.getText().toString());
-//            new_order.setComment(comment.getText().toString());
 
-
-//            firestore.collection("orders").document(new_order.getId()).set(new_order).addOnSuccessListener(
-//                    documentReference -> {
-//                        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
-//                        preferences.edit().putString("order_id", new_order.getId()).apply();
-//                        Intent intent = new Intent(this, EditActivity.class);
-//                        intent.putExtra("order", new_order);
-//                        startActivity(intent);
-//                        finish();
-//            });
 
 

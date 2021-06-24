@@ -25,26 +25,11 @@ public class IsReadyActivity extends AppCompatActivity {
 
         app = new RachelsApp(this);
         firestore = FirebaseFirestore.getInstance();
-//        Intent intent = getIntent();
-//        order = (Order) intent.getSerializableExtra("order");
+
 
         done = findViewById(R.id.done);
-//        done.setOnClickListener(v -> {
-//            order.setStatus("done");
-//            firestore.collection("orders").document(order.getId()).
-//                    update("status", order.getStatus()).addOnSuccessListener(u -> {
-//                SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this);
-//                sp.edit().putString("order_id", null).apply();
-//                Intent new_intent = new Intent(IsReadyActivity.this, MainActivity.class);
-//                startActivity(new_intent);
-//                finish();
-//            });
-//        });
-
         done.setOnClickListener(view -> {
             firestore.collection("orders").document(app.getOrder_id()).update("status", "done");
-            Toast toast = Toast.makeText(this,"bon appetit:)", Toast.LENGTH_LONG);
-            toast.show();
             Intent mainActivityIntent = new Intent(this, MainActivity.class);
             this.startActivity(mainActivityIntent);
             finish();

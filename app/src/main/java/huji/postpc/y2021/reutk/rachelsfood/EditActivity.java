@@ -38,8 +38,6 @@ public class EditActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.edit_order_activity);
 
-//        Intent intent = getIntent();
-//        order = (Order) intent.getSerializableExtra("order");
 
         app = new RachelsApp(this);
         firestore = FirebaseFirestore.getInstance();
@@ -57,59 +55,34 @@ public class EditActivity extends AppCompatActivity {
 
         firestore.collection("orders").document(order_id).get().addOnSuccessListener(documentSnapshot -> {
             order = documentSnapshot.toObject(Order.class);
-//            String num_of_pickles = (String) pickles.getSelectedItem().toString();
-            String[] items = new String[]{"1 pickle", "2 pickles", "3 pickles", "4 pickles", "5 pickles", "6 pickles", "7 pickles", "8 pickles", "9 pickles", "10 pickles"};
-            ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, items);
+            ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,R.array.status_options, android.R.layout.simple_spinner_item);
+            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
             pickles.setAdapter(adapter);
+            pickles.setSelection(order.getNum_of_pickles());
             is_hummus.setChecked(order.isHummus());
             is_tahini.setChecked(order.isTahini());
             name.setText(order.getCustomer_name());
             comment.setText(order.getComment());
         });
 
-//        is_hummus.setChecked(order.isHummus());
-//        is_tahini.setChecked(order.isTahini());
-//        name.setText(order.getCustomer_name());
-//        comment.setText(order.getComment());
-//        pickles = (Spinner) pickles.getSelectedItem();
-//        String[] items = new String[]{"1 pickle", "2 pickles", "3 pickles", "4 pickles", "5 pickles", "6 pickles", "7 pickles", "8 pickles", "9 pickles", "10 pickles"};
-//        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, items);
-//        pickles.setAdapter(adapter);
-
         edit_order.setOnClickListener(v -> {
-//            if (TextUtils.isEmpty(name.getText())) {
-//                name.setError("Please insert your name");
-//                return;
-//            }
-//            order.setHummus(is_hummus.isChecked());
-//            order.setTahini(is_tahini.isChecked());
-//            order.setNum_of_pickels(pickles.getSelectedItem().toString());
-//            order.setCustomer_name(name.getText().toString());
-//            order.setComment(comment.getText().toString());
-
-            firestore.collection("orders").document(order_id).update("customer_Name", name.getText().toString());
-            firestore.collection("orders").document(order_id).update("hummus", is_hummus.isChecked());
-            firestore.collection("orders").document(order_id).update("tahini", is_tahini.isChecked());
-            firestore.collection("orders").document(order_id).update("pickles",  pickles.getSelectedItem());
-            firestore.collection("orders").document(order_id).update("comment", comment.getText().toString());
+            if (TextUtils.isEmpty(name.getText())) {
+                name.setError("Please insert your name");
+                return;
+            }
+            order.setHummus(is_hummus.isChecked());
+            order.setTahini(is_tahini.isChecked());
+            order.setNum_of_pickels(pickles.getSelectedItemPosition());
+            order.setCustomer_name(name.getText().toString());
+            order.setComment(comment.getText().toString());
+            order.setStatus("in-progress");
+            firestore.collection("orders").document(order_id).set(order);
         });
 
         delete_order.setOnClickListener(v -> {
-            firestore.collection("orders").document(order_id).delete();
+            order.setStatus("deleted");
+            firestore.collection("orders").document(order_id).set(order);
             this.app.save_id("");
-            Toast toast = Toast.makeText(this,"your order has been Deleted", Toast.LENGTH_LONG);
-            toast.show();
-            Intent MainActivityIntent = new Intent(this, MainActivity.class);
-            this.startActivity(MainActivityIntent);
-//                    .addOnSuccessListener(
-//                    documentReference -> {
-//                        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
-//                        preferences.edit().putString("order_id", order.getId()).apply();
-//                        Intent new_intent = new Intent(this, MainActivity.class);
-//                        new_intent.putExtra("order", order);
-//                        startActivity(new_intent);
-//                        finish();
-//            });
         });
 
         listener = firestore.collection("orders").document(order_id).addSnapshotListener((val, error) -> {
@@ -125,6 +98,9 @@ public class EditActivity extends AppCompatActivity {
                 }
                 if(order.getStatus().equals("ready")) {
                     alreadyOrderActivity(IsReadyActivity.class, order);
+                }
+                if(order.getStatus().equals("deleted")) {
+                    alreadyOrderActivity(OrderActivity.class, order);
                 }
             }
             else {
