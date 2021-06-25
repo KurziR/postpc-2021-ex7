@@ -1,9 +1,7 @@
 package huji.postpc.y2021.reutk.rachelsfood;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.text.TextUtils;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -13,13 +11,11 @@ import android.widget.Switch;
 import androidx.appcompat.app.AppCompatActivity;
 import com.google.firebase.firestore.FirebaseFirestore;
 
-import javax.annotation.Nullable;
 
 public class OrderActivity extends AppCompatActivity {
 
     private RachelsApp app;
     private FirebaseFirestore firestore;
-    private SharedPreferences sp;
     private Order new_order;
     private Button save_order;
     private EditText comment;
@@ -35,7 +31,6 @@ public class OrderActivity extends AppCompatActivity {
 
         app = new RachelsApp(this);
         firestore = FirebaseFirestore.getInstance();
-        sp = PreferenceManager.getDefaultSharedPreferences(this);
         save_order = findViewById(R.id.save);
         comment = findViewById(R.id.personRequests);
         name = findViewById(R.id.personName);
@@ -50,6 +45,7 @@ public class OrderActivity extends AppCompatActivity {
         save_order.setOnClickListener(v -> {
             new_order = new Order(name.getText().toString(), pickles.getSelectedItemPosition(),
                     is_hummus.isChecked(), is_tahini.isChecked(), comment.getText().toString());
+            new_order.setStatus("waiting");
             if (TextUtils.isEmpty(name.getText())) {
                 name.setError("Please insert your name");
                 return;
